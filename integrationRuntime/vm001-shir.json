@@ -1,0 +1,6 @@
+{
+	"name": "vm001-shir",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

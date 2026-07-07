@@ -1,0 +1,21 @@
+{
+	"name": "adf-standard-01",
+	"properties": {
+		"globalParameters": {
+			"database": {
+				"type": "string",
+				"value": "free-sql-db-2300426"
+			}
+		},
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "9950a346-dd33-41f5-a5e4-b7c38ce58004",
+		"tenantId": "26b5fe32-0547-418a-86c6-085cb8aecac3"
+	}
+}

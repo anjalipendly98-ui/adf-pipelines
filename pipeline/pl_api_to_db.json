@@ -1,0 +1,107 @@
+{
+	"name": "pl_api_to_db",
+	"properties": {
+		"activities": [
+			{
+				"name": "cp_api_to_db",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": true,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_api",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_raw09",
+						"type": "DatasetReference",
+						"parameters": {
+							"Server_Name": {
+								"value": "@pipeline().parameters.server_name",
+								"type": "Expression"
+							},
+							"Database_Name": {
+								"value": "@pipeline().parameters.database_name",
+								"type": "Expression"
+							},
+							"User_Name": {
+								"value": "@pipeline().parameters.user_name",
+								"type": "Expression"
+							},
+							"Schema_Name": {
+								"value": "@pipeline().parameters.schema_name",
+								"type": "Expression"
+							},
+							"Table_Name": {
+								"value": "@pipeline().parameters.table_name",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"server_name": {
+				"type": "string",
+				"defaultValue": "raw-09.database.windows.net"
+			},
+			"database_name": {
+				"type": "string",
+				"defaultValue": "free-sql-db-2300426"
+			},
+			"user_name": {
+				"type": "string",
+				"defaultValue": "raw-09"
+			},
+			"schema_name": {
+				"type": "string",
+				"defaultValue": "dbo"
+			},
+			"table_name": {
+				"type": "string",
+				"defaultValue": "fhv_bases01"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-06-19T14:03:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

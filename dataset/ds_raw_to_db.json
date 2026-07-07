@@ -1,0 +1,45 @@
+{
+	"name": "ds_raw_to_db",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_storageacctstandard01",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"File_name": {
+				"type": "string"
+			},
+			"Folder_name": {
+				"type": "string"
+			},
+			"Container_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().File_name",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().Folder_name",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().Container_name",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

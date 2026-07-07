@@ -1,0 +1,13 @@
+{
+	"name": "lk_g_drive",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://drive.google.com/uc?id=1-g64Rduc3seUb0vONeCKYH0D4F6q6rha&export=download",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

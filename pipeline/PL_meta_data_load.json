@@ -1,0 +1,142 @@
+{
+	"name": "PL_meta_data_load",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Metadata_binary",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "Binary1",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "BinaryReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Filter1",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata_binary",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata_binary').output.childItems",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@endswith(item().name,'.xlsx')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Filter1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Filter1').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_STORAGEACCDSTANDARD01_RAW_WC",
+									"type": "DatasetReference",
+									"parameters": {
+										"File_name": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
+										"Folder_name": "binary"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_STORAGEACCDSTANDARD01_ARCHIVE_WC",
+									"type": "DatasetReference",
+									"parameters": {
+										"file_name": {
+											"value": "@concat(\n  'Xlsx/',\n  formatDateTime(pipeline().TriggerTime, 'yyyy'),\n  '/',\n  formatDateTime(pipeline().TriggerTime, 'MM'),\n  '/',\n  formatDateTime(pipeline().TriggerTime, 'dd'),\n  '/',\n  item().name,\n  '_',\n  formatDateTime(pipeline().TriggerTime, 'dd'),\n  '.xlsx'\n)\n",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-06-25T15:47:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

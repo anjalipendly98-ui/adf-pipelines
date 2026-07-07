@@ -1,0 +1,154 @@
+{
+	"name": "pl_db_dbo_fmcg",
+	"properties": {
+		"activities": [
+			{
+				"name": "cp_db_dbo_fmcg",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"additionalColumns": [
+							{
+								"name": "region",
+								"value": "$$COLUMN:APAC"
+							}
+						],
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": {
+								"value": "@pipeline().parameters.Key_column",
+								"type": "Expression"
+							}
+						},
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "customer_id",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "customer_id",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "customer_name",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "customer_name",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "email",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "email",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "phone_number",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "phone_number",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "city",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "city",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_raw09",
+						"type": "DatasetReference",
+						"parameters": {
+							"Server_Name": "raw-09.database.windows.net",
+							"Database_Name": "free-sql-db-2300426",
+							"User_Name": "raw-09",
+							"Schema_Name": "dbo",
+							"Table_Name": "staging_customers"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_raw09",
+						"type": "DatasetReference",
+						"parameters": {
+							"Server_Name": "raw-09.database.windows.net",
+							"Database_Name": "free-sql-db-2300426",
+							"User_Name": "raw-09",
+							"Schema_Name": "fmcg",
+							"Table_Name": "customers"
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"Key_column": {
+				"type": "array",
+				"defaultValue": [
+					"customer_id"
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-06-22T15:13:54Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,62 @@
+{
+	"name": "PL_WC_CP_RAW_TO_ARCHIVE",
+	"properties": {
+		"activities": [
+			{
+				"name": "Cp_binary_raw to archive",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"deleteFilesAfterCompletion": false
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings"
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_STORAGEACCDSTANDARD01_RAW_WC",
+						"type": "DatasetReference",
+						"parameters": {
+							"File_name": "NA",
+							"Folder_name": "NA"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_STORAGEACCDSTANDARD01_ARCHIVE_WC",
+						"type": "DatasetReference",
+						"parameters": {
+							"file_name": "NA"
+						}
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-06-25T15:47:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

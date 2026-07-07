@@ -1,0 +1,102 @@
+{
+	"name": "Pl_Tumbling_Window",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@concat('SELECT WindowId, WindowStart, WindowEnd, Status FROM ', pipeline().parameters.SourceTableName, ' WHERE WindowStart >= ''', formatDateTime(pipeline().parameters.WindowStartTime, 'yyyy-MM-dd HH:mm:ss'), ''' AND WindowStart < ''', formatDateTime(pipeline().parameters.WindowEndTime, 'yyyy-MM-dd HH:mm:ss'), '''')",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference",
+						"parameters": {
+							"Countainer_name": {
+								"value": "@pipeline().parameters.BlobContainerName",
+								"type": "Expression"
+							},
+							"Directory_name": {
+								"value": "@concat(pipeline().parameters.BlobFolderName, '/year=', formatDateTime(pipeline().parameters.WindowStartTime, 'yyyy'), '/month=', formatDateTime(pipeline().parameters.WindowStartTime, 'MM'), '/day=', formatDateTime(pipeline().parameters.WindowStartTime, 'dd'))",
+								"type": "Expression"
+							},
+							"File_name": {
+								"value": "@concat(replace(pipeline().parameters.SourceTableName, '.', '_'), '_', formatDateTime(pipeline().parameters.WindowStartTime, 'yyyyMMdd'), '.csv')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"SourceTableName": {
+				"type": "string",
+				"defaultValue": "dbo.TumblingWindowRuns"
+			},
+			"WindowStartTime": {
+				"type": "string",
+				"defaultValue": "2026-01-01T00:00:00Z"
+			},
+			"WindowEndTime": {
+				"type": "string",
+				"defaultValue": "2026-01-02T00:00:00Z"
+			},
+			"BlobContainerName": {
+				"type": "string",
+				"defaultValue": "tumb"
+			},
+			"BlobFolderName": {
+				"type": "string",
+				"defaultValue": "sqldb"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-07-02T14:31:18Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

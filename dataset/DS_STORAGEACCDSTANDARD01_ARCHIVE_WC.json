@@ -1,0 +1,27 @@
+{
+	"name": "DS_STORAGEACCDSTANDARD01_ARCHIVE_WC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_storageacctstandard01",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"file_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().file_name",
+					"type": "Expression"
+				},
+				"fileSystem": "archive"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

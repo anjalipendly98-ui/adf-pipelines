@@ -1,0 +1,36 @@
+{
+	"name": "LK_raw09",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"Server_Name": {
+				"type": "string"
+			},
+			"Database_Name": {
+				"type": "string"
+			},
+			"User_Name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "@{linkedService().Server_Name}",
+			"database": "@{linkedService().Database_Name}",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "@{linkedService().User_Name}",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "lk_kv_standard_09",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "db-password",
+				"secretVersion": "18be739d7738472793905ea7177cc81d"
+			}
+		}
+	}
+}

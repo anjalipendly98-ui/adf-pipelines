@@ -1,0 +1,325 @@
+{
+	"name": "DS_SHIR",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LK_VM001_SHIR",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "fifa_world_cup_2026_player_performance.csv",
+				"folderPath": "archive"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "player_id",
+				"type": "String"
+			},
+			{
+				"name": "player_name",
+				"type": "String"
+			},
+			{
+				"name": "age",
+				"type": "String"
+			},
+			{
+				"name": "nationality",
+				"type": "String"
+			},
+			{
+				"name": "team",
+				"type": "String"
+			},
+			{
+				"name": "jersey_number",
+				"type": "String"
+			},
+			{
+				"name": "position",
+				"type": "String"
+			},
+			{
+				"name": "height_cm",
+				"type": "String"
+			},
+			{
+				"name": "weight_kg",
+				"type": "String"
+			},
+			{
+				"name": "preferred_foot",
+				"type": "String"
+			},
+			{
+				"name": "club_name",
+				"type": "String"
+			},
+			{
+				"name": "market_value_eur",
+				"type": "String"
+			},
+			{
+				"name": "match_id",
+				"type": "String"
+			},
+			{
+				"name": "match_date",
+				"type": "String"
+			},
+			{
+				"name": "stadium",
+				"type": "String"
+			},
+			{
+				"name": "city",
+				"type": "String"
+			},
+			{
+				"name": "opponent_team",
+				"type": "String"
+			},
+			{
+				"name": "tournament_stage",
+				"type": "String"
+			},
+			{
+				"name": "match_result",
+				"type": "String"
+			},
+			{
+				"name": "goals_team",
+				"type": "String"
+			},
+			{
+				"name": "goals_opponent",
+				"type": "String"
+			},
+			{
+				"name": "minutes_played",
+				"type": "String"
+			},
+			{
+				"name": "goals",
+				"type": "String"
+			},
+			{
+				"name": "assists",
+				"type": "String"
+			},
+			{
+				"name": "shots",
+				"type": "String"
+			},
+			{
+				"name": "shots_on_target",
+				"type": "String"
+			},
+			{
+				"name": "expected_goals_xg",
+				"type": "String"
+			},
+			{
+				"name": "expected_assists_xa",
+				"type": "String"
+			},
+			{
+				"name": "key_passes",
+				"type": "String"
+			},
+			{
+				"name": "successful_passes",
+				"type": "String"
+			},
+			{
+				"name": "total_passes",
+				"type": "String"
+			},
+			{
+				"name": "pass_accuracy",
+				"type": "String"
+			},
+			{
+				"name": "dribbles_attempted",
+				"type": "String"
+			},
+			{
+				"name": "successful_dribbles",
+				"type": "String"
+			},
+			{
+				"name": "crosses",
+				"type": "String"
+			},
+			{
+				"name": "successful_crosses",
+				"type": "String"
+			},
+			{
+				"name": "tackles",
+				"type": "String"
+			},
+			{
+				"name": "interceptions",
+				"type": "String"
+			},
+			{
+				"name": "clearances",
+				"type": "String"
+			},
+			{
+				"name": "blocks",
+				"type": "String"
+			},
+			{
+				"name": "aerial_duels_won",
+				"type": "String"
+			},
+			{
+				"name": "aerial_duels_lost",
+				"type": "String"
+			},
+			{
+				"name": "recoveries",
+				"type": "String"
+			},
+			{
+				"name": "defensive_actions",
+				"type": "String"
+			},
+			{
+				"name": "fouls_committed",
+				"type": "String"
+			},
+			{
+				"name": "fouls_suffered",
+				"type": "String"
+			},
+			{
+				"name": "yellow_cards",
+				"type": "String"
+			},
+			{
+				"name": "red_cards",
+				"type": "String"
+			},
+			{
+				"name": "offsides",
+				"type": "String"
+			},
+			{
+				"name": "saves",
+				"type": "String"
+			},
+			{
+				"name": "save_percentage",
+				"type": "String"
+			},
+			{
+				"name": "punches",
+				"type": "String"
+			},
+			{
+				"name": "clean_sheet",
+				"type": "String"
+			},
+			{
+				"name": "goals_conceded",
+				"type": "String"
+			},
+			{
+				"name": "penalty_saves",
+				"type": "String"
+			},
+			{
+				"name": "distance_covered_km",
+				"type": "String"
+			},
+			{
+				"name": "sprint_distance_km",
+				"type": "String"
+			},
+			{
+				"name": "top_speed_kmh",
+				"type": "String"
+			},
+			{
+				"name": "accelerations",
+				"type": "String"
+			},
+			{
+				"name": "decelerations",
+				"type": "String"
+			},
+			{
+				"name": "stamina_score",
+				"type": "String"
+			},
+			{
+				"name": "player_rating",
+				"type": "String"
+			},
+			{
+				"name": "performance_score",
+				"type": "String"
+			},
+			{
+				"name": "offensive_contribution",
+				"type": "String"
+			},
+			{
+				"name": "defensive_contribution",
+				"type": "String"
+			},
+			{
+				"name": "possession_impact",
+				"type": "String"
+			},
+			{
+				"name": "pressure_resistance",
+				"type": "String"
+			},
+			{
+				"name": "creativity_score",
+				"type": "String"
+			},
+			{
+				"name": "consistency_score",
+				"type": "String"
+			},
+			{
+				"name": "clutch_performance_score",
+				"type": "String"
+			},
+			{
+				"name": "total_goals_tournament",
+				"type": "String"
+			},
+			{
+				"name": "total_assists_tournament",
+				"type": "String"
+			},
+			{
+				"name": "total_minutes_tournament",
+				"type": "String"
+			},
+			{
+				"name": "player_of_match_awards",
+				"type": "String"
+			},
+			{
+				"name": "tournament_rating",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

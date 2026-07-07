@@ -1,0 +1,25 @@
+{
+	"name": "tg_blob_event",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline2",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/archive/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/16b62613-8157-407c-aa9e-8626e34cb025/resourceGroups/standard-rg/providers/Microsoft.Storage/storageAccounts/storageacctstandard01",
+			"events": [
+				"Microsoft.Storage.BlobCreated",
+				"Microsoft.Storage.BlobDeleted"
+			]
+		}
+	}
+}
